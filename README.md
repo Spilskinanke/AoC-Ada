@@ -1,1 +1,1 @@
-# have beena a disaster for the human race
+# have been a disaster for the human race
