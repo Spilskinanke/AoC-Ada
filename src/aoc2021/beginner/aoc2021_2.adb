@@ -1,8 +1,6 @@
 with Ada.Text_IO;
 with Ada.Strings.Fixed;
 
-with Ada.Containers.Hashed_Maps;
-
 package body Aoc2021_2 is
 
    procedure runAoc is
@@ -14,8 +12,6 @@ package body Aoc2021_2 is
       x_pos2, y_pos2, aim : Integer := 0;
 
       type IntegerOp is access procedure (x : Integer);
-      subtype Direction is Character with Static_Predicate =>
-         Direction in 'f' | 'u' | 'd';
 
       procedure goForward (x : Integer) is begin
          x_pos := x_pos + x;
@@ -37,34 +33,26 @@ package body Aoc2021_2 is
       end goDown;
 
       goForwardAccess : constant IntegerOp := goForward'Access;
-      goUpAccess : constant IntegerOp := goUp'Access;
+      goUpAccess :   constant IntegerOp := goUp'Access;
       goDownAccess : constant IntegerOp := goDown'Access;
 
-      function calcHash (val : Direction) return Ada.Containers.Hash_Type is
-      begin
-         return Ada.Containers.Hash_Type (Direction'Pos (val));
-      end calcHash;
+      type Direction is (Forward, Upward, Downward, None);
+      function getDirection (char : Character) return Direction is
 
-      package FunctionMap is new Ada.Containers.Hashed_Maps
-         (Key_Type        => Direction,
-          Element_Type    => IntegerOp,
-          Hash            => calcHash,
-          Equivalent_Keys => "=");
+         direct : constant Direction := (case char is
+                                               when 'f'    => Forward,
+                                               when 'u'    => Upward,
+                                               when 'd'    => Downward,
+                                               when others => None);
 
-      function buildMap (forward, up, down : IntegerOp) return FunctionMap.Map is
-         temp_map : FunctionMap.Map;
       begin
 
-         FunctionMap.Include (temp_map, 'f', forward);
-         FunctionMap.Include (temp_map, 'u', up);
-         FunctionMap.Include (temp_map, 'd', down);
-
-         return temp_map;
-      end buildMap;
-
-      function_map : constant FunctionMap.Map := buildMap (goForwardAccess,
-                                                             goUpAccess,
-                                                             goDownAccess);
+         return direct;
+      end getDirection;
+      func_lookup : constant array (Direction) of IntegerOp := (goForwardAccess,
+                                                                goUpAccess,
+                                                                goDownAccess,
+                                                                null);
 
       file_name : constant String := "share/aoc2021_02.txt";
       file : IO.File_Type;
@@ -80,11 +68,11 @@ package body Aoc2021_2 is
 
          declare
             line   : constant String    := IO.Get_Line (file);
-            direct : constant Direction := Direction (line (line'First));
+            direct : constant Direction := getDirection (line (line'First));
             value  : constant Integer   :=
                Integer'Value (line (STR.Index (line, " ") .. line'Last));
          begin
-            function_map.Element (direct)(value);
+            func_lookup (direct)(value);
          end;
 
       end loop;
