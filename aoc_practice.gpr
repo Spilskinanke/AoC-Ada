@@ -1,0 +1,29 @@
+with "config/aoc_practice_config.gpr";
+
+project Aoc_Practice is
+
+   for Source_Dirs use ("src/aoc2020/beginner", "src/aoc2021/beginner", "src/aoc2020", "src/aoc2021", "src/aoc2022/beginner", "src/aoc2022", "src", "config");
+   for Object_Dir use "obj/" & Aoc_Practice_Config.Build_Profile;
+   for Create_Missing_Dirs use "True";
+   for Exec_Dir use "bin";
+   for Main use ("aoc_practice.adb");
+
+   package Compiler is
+      for Default_Switches ("ada") use Aoc_Practice_Config.Ada_Compiler_Switches;
+   end Compiler;
+
+   package Binder is
+      for Switches ("Ada") use ("-Es"); --  Symbolic traceback
+   end Binder;
+
+   package Install is
+      for Artifacts (".") use ("share");
+   end Install;
+
+   package Ide is
+      for Vcs_Kind use "git";
+      for Vcs_Repository_Root use ".";
+   end Ide;
+
+end Aoc_Practice;
+
