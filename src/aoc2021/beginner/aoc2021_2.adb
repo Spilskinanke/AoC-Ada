@@ -37,17 +37,13 @@ package body Aoc2021_2 is
       goDownAccess : constant IntegerOp := goDown'Access;
 
       type Direction is (Forward, Upward, Downward, None);
-      function getDirection (char : Character) return Direction is
+      function getDirection (char : Character) return Direction is begin
+         return (case char is
+                    when 'f'    => Forward,
+                    when 'u'    => Upward,
+                    when 'd'    => Downward,
+                    when others => None);
 
-         direct : constant Direction := (case char is
-                                               when 'f'    => Forward,
-                                               when 'u'    => Upward,
-                                               when 'd'    => Downward,
-                                               when others => None);
-
-      begin
-
-         return direct;
       end getDirection;
       func_lookup : constant array (Direction) of IntegerOp := (goForwardAccess,
                                                                 goUpAccess,
@@ -84,6 +80,8 @@ package body Aoc2021_2 is
          IO.Put_Line ("The total for Part A is" & total_A'Image);
          IO.Put_Line ("The total for Part B is" & total_B'Image);
       end;
+
+      IO.Close (file);
 
    end runAoc;
 end Aoc2021_2;

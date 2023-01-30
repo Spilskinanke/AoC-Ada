@@ -82,6 +82,8 @@ package body Aoc2021_1 is
       IO.Put_Line ("Part A is" & running_count'Image);
       IO.Put_Line ("Part B is" & running_count_three'Image);
 
+      IO.Close (file);
+
    end RunAoc;
 
 end Aoc2021_1;

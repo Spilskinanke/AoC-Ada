@@ -16,10 +16,8 @@ package body Aoc2020_2 is
 
       function getAllOccurances (char : Character; str : UB.Unbounded_String)
                                  return Integer is
-         count : Integer := 0;
       begin
-         count := UB.Count (str, "" & char);
-         return count;
+         return UB.Count (str, "" & char);
       end getAllOccurances;
 
       sum_partA, sum_partB : Integer := 0;
@@ -67,6 +65,8 @@ package body Aoc2020_2 is
 
       IO.Put_Line ("Sum for Part A is" & sum_partA'Image);
       IO.Put_Line ("Sum for Part B is" & sum_partB'Image);
+
+      IO.Close (file);
 
    end runAoc;
 

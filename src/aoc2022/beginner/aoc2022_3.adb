@@ -106,6 +106,8 @@ package body Aoc2022_3 is
 
       IO.Put_Line ("Sum for Part A is " & sum_partA'Image);
       IO.Put_Line ("Sum for Part B is " & sum_partB'Image);
+      
+      IO.Close (file);
 
    end runAoc;
 

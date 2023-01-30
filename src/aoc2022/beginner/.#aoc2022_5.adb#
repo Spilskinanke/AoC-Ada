@@ -35,7 +35,6 @@ package body aoc2022_5 is
             index := index + 4;
          end loop;
 
-
       end putStringList;
 
       procedure buildStack (S : Stacks.Stack_Ptr; line : UB.Unbounded_String) is

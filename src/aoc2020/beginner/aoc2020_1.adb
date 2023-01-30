@@ -86,6 +86,8 @@ package body Aoc2020_1 is
 
       end;
 
+      IO.Close (file);
+
    end runAoc;
 
 end Aoc2020_1;
