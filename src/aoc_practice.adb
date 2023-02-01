@@ -1,24 +1,16 @@
-with Aoc2022_1; with Aoc2021_1; with Aoc2020_1;
-with Aoc2022_2; with Aoc2021_2; with Aoc2020_2;
-with Aoc2022_3;
-with Aoc2022_4;
-with Aoc2022_5;
-
+with Aoc.Files;
+with Aoc;
+with Ada.Text_IO;
 procedure Aoc_Practice is
+   use Aoc.Files;
+   use Aoc;
+   temp_puzzle_search : FullStatus;
 begin
-   Aoc2022_1.runAoc;
-   Aoc2022_2.runAoc;
-
-   Aoc2021_1.runAoc;
-   Aoc2021_2.runAoc;
-
-   Aoc2020_1.runAoc;
-   Aoc2020_2.runAoc;
-
-   Aoc2022_3.runAoc;
-   Aoc2022_4.runAoc;
-
-   Aoc2022_5.runAoc;
-
+   temp_puzzle_search.status := hasYearDay;
+   for Puzz of SearchForInput (".", temp_puzzle_search) loop
+      if run (Puzz) = Failed then
+         Ada.Text_IO.Put_Line ("FAILED!");
+      end if;
+   end loop;
 
 end Aoc_Practice;

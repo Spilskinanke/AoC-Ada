@@ -1,14 +1,14 @@
 with Ada.Text_IO;
 
-package body Aoc2022_4 is
+package body Aoc.P2022_4 is
 
-   procedure runAoc is
+   procedure runAoc(input : Filename_Ptr) is
 
       package IO renames Ada.Text_IO;
       package INT_IO is new Ada.Text_IO.Integer_IO (Num => Integer);
 
       file : IO.File_Type;
-      file_name : constant String := "share/aoc2022_04.txt";
+      file_name : constant String := input.all;
 
       sum_partA, sum_partB : Integer := 0;
 
@@ -36,9 +36,6 @@ package body Aoc2022_4 is
       end calcPartialOverlap;
 
    begin
-
-      IO.New_Line;
-      IO.Put_Line ("Starting AOC2022 Day 4.");
 
       IO.Open (file, IO.In_File, file_name);
 
@@ -79,4 +76,4 @@ package body Aoc2022_4 is
 
    end runAoc;
 
-end Aoc2022_4;
+end Aoc.P2022_4;

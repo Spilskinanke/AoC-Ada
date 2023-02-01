@@ -1,9 +1,9 @@
 with Ada.Text_IO;
 with Ada.Containers.Hashed_Sets;
 
-package body Aoc2020_1 is
+package body Aoc.P2020_1 is
 
-   procedure runAoc is
+   procedure runAoc(input : Filename_Ptr) is
 
       package IO renames Ada.Text_IO;
       package INT_IO is new Ada.Text_IO.Integer_IO (Num => Integer);
@@ -20,14 +20,11 @@ package body Aoc2020_1 is
       all_set : NumSet.Set;
 
       file : IO.File_Type;
-      file_name : constant String := "share/aoc2020_01.txt";
+      file_name : constant String := input.all;
 
    begin
 
       all_set.Reserve_Capacity (200);
-
-      IO.New_Line;
-      IO.Put_Line ("Starting AOC2020 Day 1");
 
       IO.Open (file, IO.In_File, file_name);
 
@@ -90,4 +87,4 @@ package body Aoc2020_1 is
 
    end runAoc;
 
-end Aoc2020_1;
+end Aoc.P2020_1;

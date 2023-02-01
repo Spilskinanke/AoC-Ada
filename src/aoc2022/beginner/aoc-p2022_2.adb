@@ -1,13 +1,13 @@
 with Ada.Text_IO;
 
-package body Aoc2022_2 is
+package body Aoc.P2022_2 is
 
-   procedure runAoc is
+   procedure runAoc(input : Filename_Ptr) is
 
       package IO renames Ada.Text_IO;
 
       file : IO.File_Type;
-      file_name : constant String := "share/aoc2022_02.txt";
+      file_name : constant String := input.all;
 
       line : String := "___";
 
@@ -41,10 +41,6 @@ package body Aoc2022_2 is
       end calcPartB;
 
    begin
-
-      IO.New_Line;
-      IO.Put_Line ("Starting AOC2022 Day 2.");
-
       IO.Open (file, IO.In_File, file_name);
 
       while not IO.End_Of_File (file) loop
@@ -66,4 +62,4 @@ package body Aoc2022_2 is
 
    end RunAoc;
 
-end Aoc2022_2;
+end Aoc.P2022_2;

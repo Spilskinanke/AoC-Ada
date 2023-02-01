@@ -2,17 +2,17 @@ with Ada.Text_IO; use Ada.Text_IO;
 with Ada.Strings.Unbounded.Text_IO;
 with Ada.Strings.Unbounded;
 
-package body Aoc2022_1 is
+package body Aoc.P2022_1 is
 
-   procedure runAoc is
+   procedure runAoc(input : Filename_Ptr) is
 
       package IO renames Ada.Strings.Unbounded.Text_IO;
       package UB renames Ada.Strings.Unbounded;
 
       file : File_Type;
-      file_name : constant String := "share/aoc2022_01.txt";
+      file_name : constant String := input.all;
       current_line : UB.Unbounded_String;
-      three_highest_sums : array (0 .. 2) of Integer := (0, 0, 0);
+      three_highest_sums : array (0 .. 2) of Integer := [0, 0, 0];
       current_sum : Integer := 0;
 
       procedure checkIfHighest is
@@ -40,9 +40,6 @@ package body Aoc2022_1 is
       end checkIfHighest;
 
    begin
-
-      New_Line;
-      Put_Line ("Starting AOC2022 Day 1.");
 
       Open (file, In_File, file_name);
 
@@ -74,4 +71,4 @@ package body Aoc2022_1 is
 
    end RunAoc;
 
-end Aoc2022_1;
+end Aoc.P2022_1;

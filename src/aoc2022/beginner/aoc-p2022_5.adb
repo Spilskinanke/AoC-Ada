@@ -2,9 +2,9 @@ with Ada.Text_IO;
 with Ada.Strings.Unbounded;
 with Utils.Stacks;
 
-package body aoc2022_5 is
+package body Aoc.P2022_5 is
 
-   procedure runAoc is
+   procedure runAoc(input : Filename_Ptr) is
 
       package IO renames Ada.Text_IO;
       package UB renames Ada.Strings.Unbounded;
@@ -35,7 +35,6 @@ package body aoc2022_5 is
             index := index + 4;
          end loop;
 
-
       end putStringList;
 
       procedure buildStack (S : Stacks.Stack_Ptr; line : UB.Unbounded_String) is
@@ -48,12 +47,9 @@ package body aoc2022_5 is
       end buildStack;
 
       file : IO.File_Type;
-      file_name : constant String := "share/aoc2022_05.txt";
+      file_name : constant String := input.all;
 
    begin
-
-      IO.New_Line;
-      IO.Put_Line ("Starting AOC2022 Day 5.");
 
       IO.Open (File => file,
                Mode => IO.In_File,
@@ -125,10 +121,11 @@ package body aoc2022_5 is
             IO.Put ("" & S.all.look);
 
          end loop;
+         IO.New_Line;
       end;
 
       IO.Close (file);
 
    end runAoc;
 
-end aoc2022_5;
+end Aoc.P2022_5;

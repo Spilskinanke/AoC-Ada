@@ -2,13 +2,13 @@ with Ada.Text_IO;
 with Ada.Containers.Hashed_Sets;
 with Ada.Characters.Handling; use Ada.Characters.Handling;
 
-package body Aoc2022_3 is
+package body Aoc.P2022_3 is
 
-   procedure runAoc is
+   procedure runAoc(input : Filename_Ptr) is
 
       package IO renames Ada.Text_IO;
       file : IO.File_Type;
-      file_name : constant String := "share/aoc2022_03.txt";
+      file_name : constant String := input.all;
 
       function calcHash (val : Character) return Ada.Containers.Hash_Type is
       begin
@@ -88,9 +88,6 @@ package body Aoc2022_3 is
 
    begin
 
-      IO.New_Line;
-      IO.Put_Line ("Starting AOC2022 Day 3.");
-
       IO.Open (file, IO.In_File, file_name);
 
       while not IO.End_Of_File (file) loop
@@ -111,4 +108,4 @@ package body Aoc2022_3 is
 
    end runAoc;
 
-end Aoc2022_3;
+end Aoc.P2022_3;

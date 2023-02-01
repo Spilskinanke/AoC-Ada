@@ -1,9 +1,9 @@
 with Ada.Text_IO;
 with Ada.Strings.Fixed;
 
-package body Aoc2021_2 is
+package body Aoc.P2021_2 is
 
-   procedure runAoc is
+   procedure runAoc (input : Filename_Ptr) is
 
       package IO renames Ada.Text_IO;
       package STR renames Ada.Strings.Fixed;
@@ -33,8 +33,8 @@ package body Aoc2021_2 is
       end goDown;
 
       goForwardAccess : constant IntegerOp := goForward'Access;
-      goUpAccess :   constant IntegerOp := goUp'Access;
-      goDownAccess : constant IntegerOp := goDown'Access;
+      goUpAccess      : constant IntegerOp := goUp'Access;
+      goDownAccess    : constant IntegerOp := goDown'Access;
 
       type Direction is (Forward, Upward, Downward, None);
       function getDirection (char : Character) return Direction is begin
@@ -45,18 +45,15 @@ package body Aoc2021_2 is
                     when others => None);
 
       end getDirection;
-      func_lookup : constant array (Direction) of IntegerOp := (goForwardAccess,
+      func_lookup : constant array (Direction) of IntegerOp := [goForwardAccess,
                                                                 goUpAccess,
                                                                 goDownAccess,
-                                                                null);
+                                                                null];
 
-      file_name : constant String := "share/aoc2021_02.txt";
+      file_name : constant String := input.all;
       file : IO.File_Type;
 
    begin
-
-      IO.New_Line;
-      IO.Put_Line ("Starting AOC2021 Day 2.");
 
       IO.Open (file, IO.In_File, file_name);
 
@@ -84,4 +81,4 @@ package body Aoc2021_2 is
       IO.Close (file);
 
    end runAoc;
-end Aoc2021_2;
+end Aoc.P2021_2;
