@@ -5,7 +5,6 @@ package body Aoc.P2020_1 is
 
    procedure runAoc(input : Filename_Ptr) is
 
-      package IO renames Ada.Text_IO;
       package INT_IO is new Ada.Text_IO.Integer_IO (Num => Integer);
 
       function calcHash (val : Integer) return Ada.Containers.Hash_Type is

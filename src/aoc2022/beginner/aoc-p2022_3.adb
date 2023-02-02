@@ -6,7 +6,6 @@ package body Aoc.P2022_3 is
 
    procedure runAoc(input : Filename_Ptr) is
 
-      package IO renames Ada.Text_IO;
       file : IO.File_Type;
       file_name : constant String := input.all;
 

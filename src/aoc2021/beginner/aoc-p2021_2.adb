@@ -5,7 +5,6 @@ package body Aoc.P2021_2 is
 
    procedure runAoc (input : Filename_Ptr) is
 
-      package IO renames Ada.Text_IO;
       package STR renames Ada.Strings.Fixed;
 
       x_pos, y_pos : Integer := 0;

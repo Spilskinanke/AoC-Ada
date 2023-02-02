@@ -6,7 +6,6 @@ package body Aoc.P2020_2 is
 
    procedure runAoc(input : Filename_Ptr) is
 
-      package IO renames Ada.Text_IO;
       package UB_IO renames Ada.Strings.Unbounded.Text_IO;
       package UB renames Ada.Strings.Unbounded;
       package INT_IO is new Ada.Text_IO.Integer_IO (Num => Integer);

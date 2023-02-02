@@ -1,5 +1,5 @@
 with Ada.Text_IO;
-with Ada.Containers.Indefinite_Vectors;
+with Ada.Containers.Vectors;
 
 package Aoc is
 
@@ -24,7 +24,7 @@ package Aoc is
    overriding
    function "=" (Left, Right : Puzzle) return Boolean;
 
-   package RunList is new Ada.Containers.Indefinite_Vectors (Index_Type   => Positive,
+   package RunList is new Ada.Containers.Vectors (Index_Type   => Positive,
                                                              Element_Type => Puzzle,
                                                              "="          =>  "=");
 

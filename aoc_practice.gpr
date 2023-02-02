@@ -2,7 +2,7 @@ with "config/aoc_practice_config.gpr";
 
 project Aoc_Practice is
 
-   for Source_Dirs use ("src/utils/stack/", "src/utils/", "src/aoc2020/beginner", "src/aoc2021/beginner", "src/aoc2020", "src/aoc2021", "src/aoc2022/beginner", "src/aoc2022", "src", "config");
+   for Source_Dirs use ("src/utils/reverse_array/", "src/utils/stack/", "src/utils/", "src/aoc2020/beginner", "src/aoc2021/beginner", "src/aoc2020", "src/aoc2021", "src/aoc2022/beginner", "src/aoc2022", "src", "config");
    for Object_Dir use "obj/" & Aoc_Practice_Config.Build_Profile;
    for Create_Missing_Dirs use "True";
    for Exec_Dir use "bin";

@@ -4,7 +4,6 @@ package body Aoc.P2021_1 is
 
    procedure runAoc(input : Filename_Ptr) is
 
-      package IO renames Ada.Text_IO;
       package INT_IO is new Ada.Text_IO.Integer_IO (Num => Integer);
 
       file : IO.File_Type;

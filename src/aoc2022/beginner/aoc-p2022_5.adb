@@ -6,7 +6,6 @@ package body Aoc.P2022_5 is
 
    procedure runAoc(input : Filename_Ptr) is
 
-      package IO renames Ada.Text_IO;
       package UB renames Ada.Strings.Unbounded;
       package INT_IO is new Ada.Text_IO.Integer_IO (Num => Positive);
       package Stacks is new Utils.Stacks (E => Character);
