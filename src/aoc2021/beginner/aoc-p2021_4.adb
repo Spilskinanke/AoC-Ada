@@ -8,7 +8,6 @@ package body Aoc.P2021_4 is
 
       file : IO.File_Type;
       file_name : constant String := input.all;
-      partA_sum, partB_sum : Integer := 0;
 
       type Position is record
          card_loc, x_pos, y_pos : Positive;
@@ -60,11 +59,18 @@ package body Aoc.P2021_4 is
                                                              "=" => Equivalent_Elem);
 
       type ConBingoCard is new BingoCard (1 .. card_size, 1 ..  card_size);
+      type BingoCardData is record
+         card : ConBingoCard;
+         sum  : Integer := 0;
+         won  : Boolean := False;
+      end record;
       package CardHolder is new Ada.Containers.Vectors (Index_Type   => Positive,
-                                                        Element_Type => ConBingoCard,
+                                                        Element_Type => BingoCardData,
                                                         "="          => "=");
       card_list : CardHolder.Vector := CardHolder.Empty_Vector;
       position_map : PositionHash.Map := PositionHash.Empty_Map;
+      card_counter : Positive := 1;
+      card_total : Positive := 1;
 
       procedure initializeBingoData is
          card_index : Positive := Positive'First;
@@ -73,34 +79,42 @@ package body Aoc.P2021_4 is
          IO.Skip_Line (file);
 
          while not IO.End_Of_File (file) loop
-            --  make new BingoCard in vector
             declare
-               new_card : constant ConBingoCard := [others => [others => new BingoSpot]];
+               new_card : ConBingoCard;
+               card_data : BingoCardData;
             begin
+
+               card_data.card := new_card;
 
                for I in new_card'Range (1) loop
                   for J in new_card'Range (2) loop
                      declare
                         new_bing : BingoNum;
                         bing_pos : constant Position := (card_index, I, J);
+                        bing_dat : BingoSpot;
                      begin
                         I_IO.Get (file, new_bing);
-                        new_card (I, J).num := new_bing;
+                        bing_dat.num := new_bing;
+                        card_data.card (I, J) := new BingoSpot'(bing_dat);
+                        card_data.sum := card_data.sum + Integer (new_bing);
 
                         if not position_map.Contains (new_bing) then
-                           position_map.Include (new_bing, PositionList.Empty_Vector);
+                           position_map.Include
+                              (new_bing, PositionList.Empty_Vector);
                         end if;
-                        position_map.Reference (new_bing).Element.all.Append (bing_pos);
+                        position_map.Reference
+                           (new_bing).Element.all.Append (bing_pos);
                      end;
                   end loop;
                end loop;
 
-               card_list.Append (new_card);
+               card_list.Append (card_data);
                card_index := card_index + 1;
             end;
 
          end loop;
-
+         card_counter := card_index - 1;
+         card_total := card_index - 1;
          IO.Close (file);
 
       end initializeBingoData;
@@ -115,7 +129,8 @@ package body Aoc.P2021_4 is
          return x_bingo or y_bingo;
       end hasBingo;
 
-      function calcScore (card : ConBingoCard; call : BingoNum) return Integer is
+      function calcScore (card : ConBingoCard; call : BingoNum)
+                          return Integer is
          acc : Integer := 0;
       begin
          for I in card'Range (1) loop
@@ -134,7 +149,7 @@ package body Aoc.P2021_4 is
       initializeBingoData;
 
       IO.Open (file, IO.In_File, file_name);
-      Named_Loop :
+      Play_Bingo :
       while not IO.End_Of_Line (file) loop
          declare
             bingo_call : BingoNum;
@@ -145,24 +160,36 @@ package body Aoc.P2021_4 is
 
             for pos of position_map.Element (bingo_call) loop
                declare
-                  bingo_card :
-                  constant ConBingoCard :=
-                  card_list.Reference (pos.card_loc).Element.all;
+                  card_data : constant access BingoCardData
+                     := card_list.Reference (pos.card_loc).Element;
                begin
-                  bingo_card (pos.x_pos, pos.y_pos).marked := True;
-                  if hasBingo (bingo_card, pos.x_pos, pos.y_pos) then
-                     partA_sum := calcScore (bingo_card, bingo_call);
-                     IO.Put_Line ("The sum for Part A is" & partA_sum'Image);
-                     exit Named_Loop;
+                  card_data.card (pos.x_pos, pos.y_pos).marked := True;
+                  card_data.sum := card_data.sum - bingo_call;
+
+                  if not card_data.won and then
+                     hasBingo (card_data.card, pos.x_pos, pos.y_pos) then
+
+                     card_data.won := True;
+                     if card_counter = card_total then
+                        IO.Put_Line ("The sum for Part A is" &
+                                        Integer'Image (card_data.sum * bingo_call));
+                     elsif card_counter = 1 then
+                        IO.Put_Line ("The sum for Part B is" &
+                                        Integer'Image (card_data.sum * bingo_call));
+                        exit Play_Bingo;
+                     end if;
+                     card_counter := card_counter - 1;
                   end if;
                end;
             end loop;
          exception
-            when Ada.IO_Exceptions.End_Error => exit Named_Loop;
+            when Ada.IO_Exceptions.End_Error =>
+               IO.Put_Line ("Nobody wins.");
+               exit Play_Bingo;
          end;
-      end loop Named_Loop;
+      end loop Play_Bingo;
 
-      IO.Close(file);
+      IO.Close (file);
    end runAoc;
 
 end Aoc.P2021_4;
