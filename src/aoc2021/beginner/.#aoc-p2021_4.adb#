@@ -60,6 +60,12 @@ package body Aoc.P2021_4 is
                                                              "=" => Equivalent_Elem);
 
       type ConBingoCard is new BingoCard (1 .. card_size, 1 ..  card_size);
+      type BingoCardData is record
+         card : ConBingoCard;
+         sum  : Integer := 0;
+         won  : Boolean := False;
+
+      end record;
       package CardHolder is new Ada.Containers.Vectors (Index_Type   => Positive,
                                                         Element_Type => ConBingoCard,
                                                         "="          => "=");
@@ -73,7 +79,6 @@ package body Aoc.P2021_4 is
          IO.Skip_Line (file);
 
          while not IO.End_Of_File (file) loop
-            --  make new BingoCard in vector
             declare
                new_card : constant ConBingoCard := [others => [others => new BingoSpot]];
             begin
