@@ -1,5 +1,5 @@
 with Aoc.P2022_1; with Aoc.P2022_2; with Aoc.P2022_3; with Aoc.P2022_4; with Aoc.P2022_5;
-with Aoc.P2021_1; with Aoc.P2021_2; with Aoc.P2021_3; with Aoc.P2021_4;
+with Aoc.P2021_1; with Aoc.P2021_2; with Aoc.P2021_3; with Aoc.P2021_4; with Aoc.P2021_5;
 with Aoc.P2020_1; with Aoc.P2020_2;
 
 package body Aoc is
@@ -21,7 +21,7 @@ package body Aoc is
       arr (2022, 2) := Aoc.P2022_2.ptr; arr (2021, 2) := Aoc.P2021_2.ptr; arr (2020, 2) := Aoc.P2020_2.ptr;
       arr (2022, 3) := Aoc.P2022_3.ptr; arr (2021, 3) := Aoc.P2021_3.ptr;
       arr (2022, 4) := Aoc.P2022_4.ptr; arr (2021, 4) := Aoc.P2021_4.ptr;
-      arr (2022, 5) := Aoc.P2022_5.ptr;
+      arr (2022, 5) := Aoc.P2022_5.ptr; arr (2021, 5) := Aoc.P2021_5.ptr;
 
       return arr;
 

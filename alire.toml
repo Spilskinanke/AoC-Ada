@@ -1,5 +1,5 @@
 name = "aoc_practice"
-description = "Shiny new project"
+description = "Learning Ada through Advent of Code challenges"
 version = "0.1.0-dev"
 
 authors = ["Clark Hoffman"]
